@@ -64,7 +64,7 @@ def printOut(message, upsens, downsens,warnsens,downacksens, partialdownsens, un
 	result.add_channel(channel_name= "Warning", unit="Count", value= checkValue(warnsens))
 	result.add_channel(channel_name= "Down Ack", unit="Count", value=checkValue(downacksens))
 	result.add_channel(channel_name= "Partial Down", unit="Count", value=checkValue(partialdownsens))
-	result.add_channel(channel_name= "Unsual", unit="Count", value=checkValue(unusualsens))
+	result.add_channel(channel_name= "Unusual", unit="Count", value=checkValue(unusualsens))
 	result.add_channel(channel_name= "Paused", unit="Count", value=checkValue(pausedsens))
 	result.add_channel(channel_name= "Undefined", unit="Count", value=checkValue(undefinedsens))
 	
