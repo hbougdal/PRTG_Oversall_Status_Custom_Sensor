@@ -24,7 +24,7 @@ This script can be integrated in PRTG as a custom sensor. All you need is to use
 - Copy this script to the folder "PRTG Network Monitor\Custom Sensors\python" of your PRTG installation
 - In PRTG's web interface: add a Python Script Advanced sensor by clicking on "Add Sensor" button
 - In the "Add Sensor" wizard, you will need to choose the script copied in (1) from the drop-down menu
-- Enter the following information in the "Additional Parameters" field : [IP_OF_PRTG_Core_Server] [Username] [Passhash]*
+- Enter the following information in the "Additional Parameters" field : IP_OF_PRTG_Core_Server Username Passhash*
 
 *The Passhash can be obtained from PRTG's web interface, under "Setup -- Account Settings -- My Account"
 
