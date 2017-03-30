@@ -12,7 +12,7 @@ API_BASE_URL = "/api/gettreenodestats.xml"
 def getInfos(params):
 
 	try:
-		#Parsing script parameters
+		#Parsing script's parameters
 		inputs = params['params'].split()
 		
 		url_coreserver = inputs[0]
@@ -24,11 +24,13 @@ def getInfos(params):
 	
 		#Query 
 		query = url_coreserver + API_BASE_URL + "?" + "username="+username+"&"+"passhash="+passhash
-		root = ET.parse(urllib.request.urlopen(query)).getroot()
+		res   = urllib.request.urlopen(query)
+
+		root = ET.parse(res).getroot()
 		success(root, url_coreserver)
 		
-	except ValueError:
-		error("Could not load data: error while parsing script's parameters.")
+	except:
+		error("Could not load data: please check sensor's parameters.")
 
 def success(root, url_coreserver):
 	
@@ -46,8 +48,16 @@ def success(root, url_coreserver):
 	pausedsens    = root.find("pausedsens").text 
 	undefinedsens    = root.find("undefinedsens").text 
 	
-	# Building channels
-	result = CustomSensorResult("Status of the PRTG " + prtg_version+" at "+url_coreserver )
+	message = "Status of the PRTG " + prtg_version+" at "+url_coreserver
+	
+	printOut(message, upsens, downsens,warnsens,downacksens, partialdownsens, unusualsens, pausedsens, undefinedsens )
+	
+	
+	
+
+def printOut(message, upsens, downsens,warnsens,downacksens, partialdownsens, unusualsens, pausedsens, undefinedsens ): 
+	# Building sensor's output (channels)
+	result = CustomSensorResult(message)
 	
 	result.add_channel(channel_name= "Up ", unit="Count", value= checkValue(upsens))
 	result.add_channel(channel_name= "Down ", unit="Count", value= checkValue(downsens))
@@ -58,11 +68,11 @@ def success(root, url_coreserver):
 	result.add_channel(channel_name= "Paused", unit="Count", value=checkValue(pausedsens))
 	result.add_channel(channel_name= "Undefined", unit="Count", value=checkValue(undefinedsens))
 	
-	
 	print(result.get_json_result())
-
-def error(res):
-	print ("error")
+	
+	
+def error(message):
+	printOut(message, None, None,None,None, None, None, None, None)
 
 def checkValue(arg): 
 	if arg is None: 
